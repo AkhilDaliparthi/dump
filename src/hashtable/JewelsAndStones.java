@@ -1,4 +1,4 @@
-package strings;
+package hashtable;
 
 //https://leetcode.com/problems/jewels-and-stones/
 

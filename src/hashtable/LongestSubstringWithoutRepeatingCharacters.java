@@ -1,9 +1,6 @@
-package strings;
-
-import arrays.ContainerWithMostWater;
+package hashtable;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 //https://leetcode.com/problems/longest-substring-without-repeating-characters/
 

@@ -1,4 +1,4 @@
-package arrays;
+package twopointer;
 
 //https://leetcode.com/problems/container-with-most-water/
 

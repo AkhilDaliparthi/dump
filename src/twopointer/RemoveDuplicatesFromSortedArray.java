@@ -1,6 +1,4 @@
-package arrays;
-
-import java.util.List;
+package twopointer;
 
 //https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 
