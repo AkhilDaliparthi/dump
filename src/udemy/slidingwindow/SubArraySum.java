@@ -1,28 +1,21 @@
 package udemy.slidingwindow;
 
-import udemy.arrays.SubarraySort;
+import java.util.HashMap;
 
 public class SubArraySum {
 
     public int solution(int[] nums, int k){
-        int count = 0;
-        for(int i=1; i<=nums.length; i++) {
-            int y=0;
-            int sum=0;
-            while(y<i){
-                sum+=nums[y];
-                y++;
+        int count = 0, sum = 0;
+        HashMap< Integer, Integer > map = new HashMap < > ();
+        int i=0;
+        map.put(0,1);
+        while(i<nums.length) {
+            sum+=nums[i];
+            if(map.containsKey(sum-k)) {
+                count+=map.get(sum-k);
             }
-            if(sum==k) {
-                count++;
-            }
-            for( ;y<nums.length; y++) {
-                sum-=nums[y-i];
-                sum+=nums[y];
-                if(sum==k) {
-                    count++;
-                }
-            }
+            map.put(sum, map.getOrDefault(sum,0)+1);
+            i++;
         }
         return count;
     }
