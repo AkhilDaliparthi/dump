@@ -48,8 +48,8 @@ public class Trie {
 
     public static void main(String[] args) {
         Trie trie = new Trie();
-        trie.addWords("Akhil");
-        trie.addWords("Eswar");
-        System.out.println(trie.searchWord("Eswa"));
+        trie.addWords("esha");
+        trie.addWords("eswar");
+        System.out.println(trie.searchWord("eswa"));
     }
 }

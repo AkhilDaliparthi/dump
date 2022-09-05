@@ -21,40 +21,58 @@ public class MergeTwoSortedList {
         return start;
     }
 
-    public ListNode solution(ListNode l1, ListNode l2) {
-        if(l1==null) {
-            return l2;
+    public ListNode solution(ListNode a, ListNode b) {
+        ListNode curr = null;
+        if(a==null) {
+            return b;
         }
-        if(l2==null) {
-            return l1;
+        if(b==null) {
+            return a;
         }
-        ListNode curr = l1;
-        ListNode prev = null;
-        while(curr != null && curr.val<= l2.val) {
-            while(curr.val<=l2.val) {
-                prev = curr;
-                curr = curr.next;
-            }
-            ListNode temp = l2.next;
-            if(prev != null) {
-                prev.next = l2;
+        if(a.val<=b.val) {
+            curr = new ListNode(a.val);
+            a=a.next;
+        } else {
+            curr = new ListNode(b.val);
+            b=b.next;
+        }
+        ListNode res = curr;
+        while(a!=null && b!=null) {
+            if(a.val<=b.val) {
+                ListNode temp = new ListNode(a.val);
+                curr.next = temp;
+                a=a.next;
             } else {
-                l1=l2;
+                ListNode temp = new ListNode(b.val);
+                curr.next = temp;
+                b=b.next;
             }
-            l2.next = curr;
-            prev = l2;
-            l2 = temp;
+            curr = curr.next;
         }
-        if(l2!=null && prev != null) {
-            prev.next = l2;
+        while(a!=null) {
+            ListNode temp = new ListNode(a.val);
+            curr.next = temp;
+            curr = curr.next;
+            a=a.next;
         }
-        return l1;
+        while(b!=null) {
+            ListNode temp = new ListNode(b.val);
+            curr.next = temp;
+            curr = curr.next;
+            b=b.next;
+        }
+        return res;
     }
 
     public static void main(String[] args) {
         MergeTwoSortedList mergeTwoSortedList = new MergeTwoSortedList();
-        ListNode l1 = mergeTwoSortedList.addNodes(new int[]{});
-        ListNode l2 = mergeTwoSortedList.addNodes(new int[]{});
+        ListNode l1 = mergeTwoSortedList.addNodes(new int[]{5,7,8,30});
+        ListNode l2 = mergeTwoSortedList.addNodes(new int[]{10,20});
         ListNode res = mergeTwoSortedList.solution(l1, l2);
+        ListNode curr = res;
+        while(curr!=null) {
+            System.out.print(curr.val+"\t");
+            curr = curr.next;
+        }
     }
 }

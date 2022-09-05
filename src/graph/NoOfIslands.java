@@ -1,7 +1,5 @@
 package graph;
 
-import com.sun.tools.javac.util.Pair;
-
 import java.util.LinkedList;
 import java.util.Queue;
 

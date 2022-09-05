@@ -54,16 +54,17 @@ public class NodesAtDistance {
             getNodesAtDistance(root, dis, res);
             return 0;
         }
-        int d = findAtDistance(root.left, target, dis, res);
 
+        int d = findAtDistance(root.left, target, dis, res);
         if(d != -1) {
             if(d+1 == dis) {
                 res.add(root.val);
             } else {
                 getNodesAtDistance(root.right, dis-d-2, res);
             }
-            return 1+d;
+            return d+1;
         }
+
         d = findAtDistance(root.right, target, dis, res);
         if(d != -1) {
             if(d+1 == dis) {
@@ -71,7 +72,7 @@ public class NodesAtDistance {
             } else {
                 getNodesAtDistance(root.left, dis-d-2, res);
             }
-            return 1+d;
+            return d+1;
         }
         return -1;
     }
@@ -87,8 +88,6 @@ public class NodesAtDistance {
         getNodesAtDistance(root.left, dis-1, res);
         getNodesAtDistance(root.right, dis-1, res);
     }
-
-
 
     public static void main(String[] args) {
         NodesAtDistance nodesAtDistance = new NodesAtDistance();

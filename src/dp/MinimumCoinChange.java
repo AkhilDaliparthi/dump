@@ -39,6 +39,5 @@ public class MinimumCoinChange {
         int[] coins = {2,3,5,10};
 
         System.out.println(minimumCoinChange.solution(coins, 15));
-        System.out.println(minimumCoinChange.recSolution(coins, 15));
     }
 }

@@ -31,7 +31,6 @@ public class CycleInGraph {
         for (int i = 0; i < v; i++) {
             adj.add(new ArrayList<>());
         }
-
         addEdge(adj, 0, 1);
         addEdge(adj, 0, 2);
         addEdge(adj, 1, 2);

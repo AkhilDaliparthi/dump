@@ -37,6 +37,6 @@ public class LargestRectangle {
 
     public static void main(String[] args) {
         LargestRectangle largestRectangle = new LargestRectangle();
-        System.out.println(largestRectangle.solution(new int[]{2,4}));
+        System.out.println(largestRectangle.solution(new int[]{1,3,4,2}));
     }
 }

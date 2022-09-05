@@ -3,67 +3,52 @@ package graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 public class CourseSchedule2 {
 
-    public int[] solution(int courses, int[][] preReq) {
-        HashMap<Integer, ArrayList<Integer>> coursesMap = new HashMap<>(courses);
-        int[] order = new int[courses];
-        if(preReq.length==0) {
-            for(int i=courses-1; i>=0; i--) {
-                order[courses-i-1]= i;
-            }
-            return order;
-        }
-        for(int i=0; i<preReq.length; i++){
-            if(coursesMap.containsKey(preReq[i][0])) {
-                coursesMap.get(preReq[i][0]).add(preReq[i][1]);
-            } else {
-                ArrayList<Integer> existing = new ArrayList<>();
-                existing.add(preReq[i][1]);
-                coursesMap.put(preReq[i][0], existing);
-            }
-        }
-        ArrayList<Integer> res = new ArrayList<>();
-        boolean[] completed = new boolean[courses];
-        for(int i:coursesMap.keySet()) {
-            if(!completed[i]) {
-                HashSet<Integer> path = new HashSet<>();
-                path.add(i);
-                if(completeCourse(i, coursesMap, completed,path, res).size()==0){
-                    return new int[]{};
-                }
-            }
-        }
-        for(int i=0; i<courses; i++) {
-            if (!completed[i] && coursesMap.containsKey(i)) {
-                return new int[]{};
-            }
-            if(!completed[i]){
-                res.add(i);
-            }
-        }
-        for(int i=res.size()-1; i>=0; i--) {
-            order[i] = res.get(i);
-        }
-        return order;
-    }
+    public int[] solution(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> adjList = new HashMap<Integer, List<Integer>>();
+        int[] indegree = new int[numCourses];
+        int[] topologicalOrder = new int[numCourses];
 
-    public ArrayList<Integer> completeCourse(int course, HashMap<Integer, ArrayList<Integer>> coursesMap, boolean[] completed, HashSet<Integer> path, ArrayList<Integer> res) {
-        for(int c : coursesMap.getOrDefault(course, new ArrayList<>())) {
-            if(path.contains(c) && !completed[c]) {
-                return new ArrayList<>();
+        for (int i = 0; i < prerequisites.length; i++) {
+            int dest = prerequisites[i][0];
+            int src = prerequisites[i][1];
+            List<Integer> lst = adjList.getOrDefault(src, new ArrayList<Integer>());
+            lst.add(dest);
+            adjList.put(src, lst);
+            indegree[dest] += 1;
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
             }
-            if(!completed[c]) {
-                path.add(c);
-                if(completeCourse(c, coursesMap, completed, path, res).size()==0){
-                    return new ArrayList<>();
+        }
+
+        int i = 0;
+        while (!q.isEmpty()) {
+            int node = q.remove();
+            topologicalOrder[i] = node;
+            i++;
+            if (adjList.containsKey(node)) {
+                for (Integer neighbor : adjList.get(node)) {
+                    indegree[neighbor]--;
+
+                    if (indegree[neighbor] == 0) {
+                        q.add(neighbor);
+                    }
                 }
             }
         }
-        completed[course] = true;
-        res.add(course);
-        return res;
+        if (i == numCourses) {
+            return topologicalOrder;
+        }
+        return new int[0];
     }
 
     public static void main(String[] args) {

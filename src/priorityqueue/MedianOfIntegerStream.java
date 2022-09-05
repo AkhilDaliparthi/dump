@@ -15,14 +15,14 @@ public class MedianOfIntegerStream {
 
     void add(int num) {
         if (!minHeap.isEmpty() && num < minHeap.peek()) {
-            maxHeap.offer(num);
+            maxHeap.add(num);
             if (maxHeap.size() > minHeap.size() + 1) {
-                minHeap.offer(maxHeap.poll());
+                minHeap.add(maxHeap.poll());
             }
         } else {
-            minHeap.offer(num);
+            minHeap.add(num);
             if (minHeap.size() > maxHeap.size() + 1) {
-                maxHeap.offer(minHeap.poll());
+                maxHeap.add(minHeap.poll());
             }
         }
     }

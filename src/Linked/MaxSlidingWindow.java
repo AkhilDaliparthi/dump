@@ -1,7 +1,5 @@
 package Linked;
 
-import com.sun.tools.javac.util.Pair;
-
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -9,18 +7,18 @@ public class MaxSlidingWindow {
 
     public int[] solution(int[] nums, Integer k) {
         int[] res = new int[nums.length-k+1];
-        Deque<Pair<Integer,Integer>> q = new LinkedList<>();
+        Deque<Integer> q = new LinkedList<>();
         int j=0;
         for(int i=0; i< nums.length; i++) {
-            while(!q.isEmpty() && q.peekLast().fst<=nums[i]) {
+            while(!q.isEmpty() && nums[q.peekLast()]<=nums[i]) {
                 q.removeLast();
             }
-            if(!q.isEmpty() && i-q.peek().snd>=k){
+            if(!q.isEmpty() && i-q.peek()>=k){
                 q.removeFirst();
             }
-            q.add(new Pair<>(nums[i], i));
+            q.add(i);
             if(i>=k-1) {
-                res[j] = q.peek().fst;
+                res[j] = nums[q.peek()];
                 j++;
             }
         }
