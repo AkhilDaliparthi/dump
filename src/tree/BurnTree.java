@@ -1,10 +1,11 @@
 package tree;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 public class BurnTree {
 
@@ -48,7 +49,7 @@ public class BurnTree {
         Map<TreeNode,TreeNode> map = new HashMap<>();
         findParents(A,map,B);
         Queue<TreeNode> q = new LinkedList<>();
-        ArrayList<TreeNode> vis = new ArrayList<>();
+        Set<TreeNode> vis = new HashSet<>();
         int count = 0;
         q.add(leafNode);
         vis.add(leafNode);

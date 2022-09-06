@@ -1,10 +1,10 @@
 package tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ValidateBinaryTree {
-
+public class RootToLeaf {
     public class TreeNode {
         int val;
         TreeNode left;
@@ -39,24 +39,26 @@ public class ValidateBinaryTree {
         return root;
     }
 
-    public boolean solution(TreeNode root) {
-        return DFSUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    public ArrayList<ArrayList<Integer>> pathSum(TreeNode A, int B) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        getSum(A, res, new ArrayList<>(), 0, B);
+        return res;
     }
-
-    public boolean DFSUtil(TreeNode root, int left, int right) {
+    private void getSum(TreeNode root, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> temp, int sum, int B) {
         if(root==null) {
-            return true;
+            return ;
         }
-        if(left>=root.val && root.val>=right) {
-            return false;
+        temp.add(root.val);
+        sum+=root.val;
+        if(root.left==null && root.right==null && sum==B) {
+            res.add(new ArrayList<>(temp));
         }
-        return DFSUtil(root.left, left, root.val) && DFSUtil(root.right, root.val, right);
+        getSum(root.left, res, temp, sum, B);
+        getSum(root.right, res, temp, sum, B);
+        temp.remove(temp.size()-1);
     }
 
     public static void main(String[] args) {
-        ValidateBinaryTree validateBinaryTree = new ValidateBinaryTree();
-        int[] nums = {5,1,4,-1,-1,3,6};
-        TreeNode root = validateBinaryTree.addNode(nums);
-        System.out.println(validateBinaryTree.solution(root));
+        RootToLeaf rootToLeaf = new RootToLeaf();
     }
 }

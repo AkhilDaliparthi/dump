@@ -1,7 +1,5 @@
 package dp;
 
-import java.util.Arrays;
-
 public class BuySellKTransactions {
 
     public int recSolution(int[] prices, int k) {
@@ -17,7 +15,6 @@ public class BuySellKTransactions {
 
         if (state == 0) {
             doSomething = recursion(i + 1, 1, prices, k) - prices[i];
-
         } else {
             doSomething = recursion(i + 1, 0, prices, k - 1) + prices[i];
         }
@@ -50,18 +47,17 @@ public class BuySellKTransactions {
     }
 
     public int solution(int[] prices, int k) {
+        if(prices.length==0) {
+            return 0;
+        }
         int[][] dp = new int[k+1][prices.length];
-        for(int i=0; i<k+1; i++) {
+        for(int i=1; i<k+1; i++) {
             int maxDiff = Integer.MIN_VALUE;
-            for(int j=0; j<prices.length; j++) {
-                if(i==0||j==0) {
-                    dp[i][j] = 0;
-                } else {
-                    int noSell = dp[i][j-1];
-                    maxDiff = Math.max(maxDiff, dp[i-1][j]-prices[j]);
-                    int sell = prices[j]+maxDiff;
-                    dp[i][j] = Math.max(noSell, sell);
-                }
+            for(int j=1; j<prices.length; j++) {
+                int noSell = dp[i][j-1];
+                maxDiff = Math.max(maxDiff, dp[i-1][j-1]-prices[j-1]);
+                int sell = prices[j]+maxDiff;
+                dp[i][j] = Math.max(noSell, sell);
             }
         }
         return dp[k][prices.length-1];

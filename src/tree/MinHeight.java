@@ -3,7 +3,7 @@ package tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ValidateBinaryTree {
+public class MinHeight {
 
     public class TreeNode {
         int val;
@@ -39,24 +39,26 @@ public class ValidateBinaryTree {
         return root;
     }
 
-    public boolean solution(TreeNode root) {
-        return DFSUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    int min = Integer.MAX_VALUE;
+    public int minDepth(TreeNode A) {
+        getDepth(A, 0);
+        return min;
     }
 
-    public boolean DFSUtil(TreeNode root, int left, int right) {
+    private void getDepth(TreeNode root, int height) {
         if(root==null) {
-            return true;
+            return ;
         }
-        if(left>=root.val && root.val>=right) {
-            return false;
+        if(root.left == null && root.right == null && height<min) {
+            min = height;
         }
-        return DFSUtil(root.left, left, root.val) && DFSUtil(root.right, root.val, right);
+        getDepth(root.left, height+1);
+        getDepth(root.right, height+1);
     }
 
     public static void main(String[] args) {
-        ValidateBinaryTree validateBinaryTree = new ValidateBinaryTree();
-        int[] nums = {5,1,4,-1,-1,3,6};
-        TreeNode root = validateBinaryTree.addNode(nums);
-        System.out.println(validateBinaryTree.solution(root));
+        MinHeight minHeight = new MinHeight();
+        TreeNode root = minHeight.addNode(new int[]{1, 2, -1, -1, 3, -1, -1});
+        System.out.println(minHeight.minDepth(root));
     }
 }

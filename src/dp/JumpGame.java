@@ -2,7 +2,7 @@ package dp;
 
 public class JumpGame {
 
-    public boolean canJump(int[] nums) {
+    public boolean canJumpRec(int[] nums) {
         boolean[] dp = new boolean[nums.length];
         topDown(nums, 0, dp);
         return dp[nums.length-1];
@@ -62,8 +62,29 @@ public class JumpGame {
         return dp[nums.length-1];
     }
 
+    public boolean canJump(int[] nums) {
+        for(int i=0; i<nums.length; i++) {
+            if(i+nums[i]>=nums.length-1) {
+                return true;
+            }
+            if(nums[i]==0) {
+                return false;
+            }
+            int maxIndex = i;
+            int max = i;
+            for(int j=i+1; j<=i+nums[i] && j<nums.length; j++) {
+                if(max<j+nums[j]) {
+                    max = j+nums[j];
+                    maxIndex = j;
+                }
+            }
+            i = maxIndex-1;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         JumpGame jumpGame = new JumpGame();
-        System.out.println(jumpGame.bottomUp(new int[]{2,5,0,0}));
+        System.out.println(jumpGame.canJump(new int[]{2,5,0,0}));
     }
 }
